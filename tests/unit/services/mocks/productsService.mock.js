@@ -13,6 +13,14 @@ const Allproducts = [
   }
 ];
 
+const invalidValue = 'a';
+
+const validName = 'ProdutoX';
+const validID = 6;
+
 module.exports = {
   Allproducts,
+  invalidValue, 
+  validName,
+  validID,
 }

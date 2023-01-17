@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const { productService } = require('../../../src/services/index');
 const { productsModel } = require('../../../src/models/index');
 
-const { Allproducts } = require('./mocks/productsService.mock');
+const { Allproducts, invalidValue, validName, validID } = require('./mocks/productsService.mock');
 
 // const connection = require('../../../src/models/connection');
 
@@ -55,5 +55,14 @@ describe('Verificando service products', function () {
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(Allproducts[0]);
     })
+  });
+
+  describe('Cadastro de um produto com valores invalidos', function () {
+    it('Retorna um erro ao passar um noma inválido', async function () {
+      const result = await productService.insertProduct(validID, validName);
+
+      expect(result.type).to.equal('INVALID_VALUE');
+      expect(result.message).to.equal('"name" length must be at least 3 characters long');
+    });
   });
 });
