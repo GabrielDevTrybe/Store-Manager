@@ -4,6 +4,7 @@ const errorMap = {
   TRAVEL_NOT_FOUND: 404,
   DRIVER_NOT_FOUND: 404,
   TRAVEL_CONFLICT: 409,
+  UNDEFINED_VALUE: 400,
   
 };
 
