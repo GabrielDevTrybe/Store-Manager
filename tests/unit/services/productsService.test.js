@@ -58,11 +58,11 @@ describe('Verificando service products', function () {
   });
 
   describe('Cadastro de um produto com valores invalidos', function () {
-    it('Retorna um erro ao passar um noma inválido', async function () {
-      const result = await productService.insertProduct(validID, validName);
+    it('Retorna um erro ao passar um nome inválido', async function () {
+      const result = await productService.insertProduct(invalidValue);
 
-      expect(result.type).to.equal('INVALID_VALUE');
-      expect(result.message).to.equal('"name" length must be at least 3 characters long');
+      expect(result.type).to.equal('UNDEFINED_VALUE');
+      expect(result.message).to.equal('"value" must be of type object');
     });
   });
 });

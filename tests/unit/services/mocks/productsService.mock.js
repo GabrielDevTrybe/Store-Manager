@@ -15,7 +15,9 @@ const Allproducts = [
 
 const invalidValue = 'a';
 
-const validName = 'ProdutoX';
+const validName = {
+  name: 'ProdutoX'
+};
 const validID = 6;
 
 module.exports = {
