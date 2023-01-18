@@ -10,7 +10,7 @@ const { productService } = require('../../../src/services');
 const { productController } = require('../../../src/controllers');
 
 //Mock
-const { productMock } = require('../controllers/mocks/productsController.mock');
+const { productMock, newProductsMock } = require('../controllers/mocks/productsController.mock');
 
 describe('Teste de unidade do passengerController', function () {
   afterEach(function () {
@@ -35,6 +35,54 @@ describe('Teste de unidade do passengerController', function () {
 
 
     })
-
   })
+
+    
+  describe('Buscando uma produto', function () {
+    it('deve responder com 200 e os dados do banco quando existir', async function () {
+
+      const res = {};
+      const req = {
+        params: { id: 1 },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, 'findProductsById')
+        .resolves({ type: null, message: newProductsMock });
+      
+      await productController.findProductsById(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(newProductsMock);
+
+
+    })
+
+    it('Ao passar um id invalido deve retornar um erro', async function () {
+
+      const res = {};
+      const req = {
+        params: { id: 'abc' }, 
+      };
+
+      es.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, 'findProductsById')
+        .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+
+      
+      await productController.findProductsById(req, res);
+
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith('Product not found');
+    });
+
+
+
+  });
+
+
 })

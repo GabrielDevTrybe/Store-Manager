@@ -13,12 +13,12 @@ const productMock = [
   },
 ];
 
-// const newProductsMock = { id: 1, ...productMock };
+const newProductsMock = { id: 1, ...productMock };
 
-// const productListMock = [newProductsMock]
+const productListMock = [newProductsMock]
 
 module.exports = {
   productMock,
-  // newProductsMock,
-  // productListMock,
+  newProductsMock,
+  productListMock,
 };
