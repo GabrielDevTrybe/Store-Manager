@@ -13,6 +13,13 @@ const productMock = [
   },
 ];
 
+const insertMock = [
+  {
+    id: 5,
+    name: 'ProdutoNovo'
+  }
+];
+
 const newProductsMock = { id: 1, ...productMock };
 
 const productListMock = [newProductsMock]
@@ -21,4 +28,5 @@ module.exports = {
   productMock,
   newProductsMock,
   productListMock,
+  insertMock,
 };

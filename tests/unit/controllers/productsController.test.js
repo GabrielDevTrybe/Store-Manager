@@ -10,7 +10,7 @@ const { productService } = require('../../../src/services');
 const { productController } = require('../../../src/controllers');
 
 //Mock
-const { productMock, newProductsMock } = require('../controllers/mocks/productsController.mock');
+const { productMock, newProductsMock, insertMock } = require('../controllers/mocks/productsController.mock');
 
 describe('Teste de unidade do passengerController', function () {
   afterEach(function () {
@@ -27,7 +27,7 @@ describe('Teste de unidade do passengerController', function () {
       sinon
         .stub(productService, 'findAllProducts')
         .resolves({ type: null, message: productMock });
-      
+
       await productController.findAllProducts(req, res);
 
       expect(res.status).to.have.been.calledWith(200);
@@ -37,7 +37,7 @@ describe('Teste de unidade do passengerController', function () {
     })
   })
 
-    
+
   describe('Buscando uma produto', function () {
     it('deve responder com 200 e os dados do banco quando existir', async function () {
 
@@ -51,7 +51,7 @@ describe('Teste de unidade do passengerController', function () {
       sinon
         .stub(productService, 'findProductsById')
         .resolves({ type: null, message: newProductsMock });
-      
+
       await productController.findProductsById(req, res);
 
       expect(res.status).to.have.been.calledWith(200);
@@ -64,7 +64,7 @@ describe('Teste de unidade do passengerController', function () {
 
       const res = {};
       const req = {
-        params: { id: 9999 }, 
+        params: { id: 9999 },
       };
 
       res.status = sinon.stub().returns(res);
@@ -73,16 +73,66 @@ describe('Teste de unidade do passengerController', function () {
         .stub(productService, 'findProductsById')
         .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
 
-      
+
       await productController.findProductsById(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
 
+  });
+
+  describe('Cadastrando um novo produto', function () {
+    it('Ao enviar dados validos deve salvar com sucesso!', async function () {
+      const res = {};
+      const req = {
+        body: insertMock,
+      };
+
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'insertProduct')
+        .resolves({ type: null, message: newProductsMock });
+
+      await productController.insertProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(newProductsMock);
+
+
+    });
+
+    it('ao enviar um nome com menos de 5 caracteres deve retornar um erro!', async function () {
+     //Arrange
+      const res = {};
+      const req = {
+        body: {
+          name: 'Zé',
+        }
+      };
+
+      //Duble
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'insertProduct')
+        .resolves({ type: 'INVALID_VALUE', message: '"name" length must be at least 5 characters long' });
+
+      //Act
+      await productController.insertProduct(req, res);
+
+
+
+      //Assert
+
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+    })
 
 
   });
-
-
-})
+});
