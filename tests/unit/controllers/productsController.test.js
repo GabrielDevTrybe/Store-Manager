@@ -71,13 +71,13 @@ describe('Teste de unidade do passengerController', function () {
       res.json = sinon.stub().returns();
       sinon
         .stub(productService, 'findProductsById')
-        .resolves({ type: 'PRODUCT_NOT_FOUND', message: "Product not found" });
+        .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
 
       
       await productController.findProductsById(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
-      expect(res.json).to.have.been.calledWith('Product not found');
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
 
 
