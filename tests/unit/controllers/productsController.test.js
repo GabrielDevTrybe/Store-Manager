@@ -60,23 +60,23 @@ describe('Teste de unidade do passengerController', function () {
 
     })
 
-    it('Ao passar um id invalido deve retornar um erro', async function () {
+    it('Ao passar um id que nao existe deve retornar um erro', async function () {
 
       const res = {};
       const req = {
-        params: { id: 'abc' }, 
+        params: { id: 9999 }, 
       };
 
-      es.status = sinon.stub().returns(res);
+      res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
       sinon
         .stub(productService, 'findProductsById')
-        .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+        .resolves({ type: 'PRODUCT_NOT_FOUND', message: "Product not found" });
 
       
       await productController.findProductsById(req, res);
 
-      expect(res.status).to.have.been.calledWith(422);
+      expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith('Product not found');
     });
 
