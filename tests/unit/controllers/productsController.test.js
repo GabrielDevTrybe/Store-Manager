@@ -12,7 +12,7 @@ const { productController } = require('../../../src/controllers');
 //Mock
 const { productMock, newProductsMock, insertMock } = require('../controllers/mocks/productsController.mock');
 
-describe('Teste de unidade do passengerController', function () {
+describe('Teste de unidade do productsController', function () {
   afterEach(function () {
     sinon.restore();
   });
