@@ -28,8 +28,13 @@ const insertProduct = async (product) => {
   return { type: null, message: newProduct };
 };
 
+const deleteProduct = async (id) => {
+  
+};
+
 module.exports = {
   findAllProducts,
   findProductsById,
   insertProduct,
+  deleteProduct,
 };
