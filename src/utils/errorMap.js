@@ -5,6 +5,7 @@ const errorMap = {
   DRIVER_NOT_FOUND: 404,
   TRAVEL_CONFLICT: 409,
   UNDEFINED_VALUE: 400,
+  SALE_NOT_FOUND: 404,
   
 };
 
