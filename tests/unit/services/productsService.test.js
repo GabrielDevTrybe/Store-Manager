@@ -67,13 +67,6 @@ describe('Verificando service products', function () {
 
     })
 
-    // it('Verifica se ao encontrar o produto, nao retorna erro', async function () {
-    //   sinon.stub(productsModel, "findAllProducts").resolves(products);
-    //   sinon.stub(productsModel, "findProductsById").resolves({ affectedRows: 1 });
-    //   const result = await productsService.deleteProductById(1);
-    //   expect(Object.keys(result).length).to.be.deep.equal(0);
-    // });
-
   });
 
   describe('Cadastro de um produto com valores invalidos', function () {
