@@ -54,7 +54,26 @@ describe('Verificando service products', function () {
 
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(Allproducts[0]);
+    });
+
+
+    it('retorna um erro ao deletar um produto que nao existe', async function () {
+      sinon.stub(productsModel, 'findAllProducts').resolves(Allproducts)
+
+      const result = await productService.deleteProduct(8);
+
+
+      expect(result).to.be.deep.equal({ type: "PRODUCT_NOT_FOUND", message: "Product not found" });
+
     })
+
+    // it('Verifica se ao encontrar o produto, nao retorna erro', async function () {
+    //   sinon.stub(productsModel, "findAllProducts").resolves(products);
+    //   sinon.stub(productsModel, "findProductsById").resolves({ affectedRows: 1 });
+    //   const result = await productsService.deleteProductById(1);
+    //   expect(Object.keys(result).length).to.be.deep.equal(0);
+    // });
+
   });
 
   describe('Cadastro de um produto com valores invalidos', function () {

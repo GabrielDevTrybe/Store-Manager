@@ -29,7 +29,10 @@ const insertProduct = async (product) => {
 };
 
 const deleteProduct = async (id) => {
-  
+  const product = await productsModel.deleteProduct(id);
+
+  if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
 module.exports = {
