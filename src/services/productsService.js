@@ -28,11 +28,16 @@ const insertProduct = async (product) => {
   return { type: null, message: newProduct };
 };
 
+// Tive uma ajuda do Arthur Debiassi pra montar a função deleteProduct da Service
 const deleteProduct = async (id) => {
-  const product = await productsModel.deleteProduct(id);
-
+  const product = await productsModel.findProductsById(id);
+  console.log(product);
+  
   if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
-  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  
+  await productsModel.deleteProduct(id);
+
+  return { type: null };
 };
 
 module.exports = {
